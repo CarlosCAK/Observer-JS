@@ -604,6 +604,10 @@ video {
   display: flex;
 }
 
+.grid {
+  display: grid;
+}
+
 .h-14 {
   height: 3.5rem;
 }
@@ -616,6 +620,18 @@ video {
   width: 16.666667%;
 }
 
+.basis-3\/12 {
+  flex-basis: 25%;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -626,6 +642,10 @@ video {
 
 .justify-evenly {
   justify-content: space-evenly;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .rounded-lg {

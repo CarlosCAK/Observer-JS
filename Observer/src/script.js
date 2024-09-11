@@ -168,6 +168,7 @@ const buildElement = () =>{
 buildElement()
 
 
+
 {/* <div class="machine-container-red">
             <h2 class="mt-6 mb-10 text-red-custom text-xl">SUPERAQUECIDA</h2>
             <h2 class="mb-20 text-xl">Maquina #002</h2>
