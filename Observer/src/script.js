@@ -1,5 +1,6 @@
 
 const body = document.querySelector("body")
+const machinesContainer = document.getElementById("container-machines")
 
 
 class Funcionario{
@@ -100,15 +101,8 @@ const showNotificatons = () =>{
     })
 }
 
-const atualizar = document.getElementById("button")
 
-atualizar.addEventListener("click", () =>{
-    machineList.forEach((machine) => {
-        machine.atualizar()
-    })
-})
-
-const buildElement = (machine) =>{
+const buildElement = () =>{
 
     const divContainerMachine = document.createElement("div")
 
@@ -116,11 +110,63 @@ const buildElement = (machine) =>{
 
     const status = document.createElement("h2")
 
-    status
+    status.classList.add("mt-6")
+    status.classList.add("mb-10")
+    status.classList.add("text-red-custom")
+    status.classList.add("text-xl")
+    status.innerText = "SUPERAQUECIDA"
 
+    const title = document.createElement("h2")
+
+    title.classList.add("mb-20")
+    title.classList.add("text-xl")
+    title.innerText = "Maquina #003"
+
+    divContainerMachine.appendChild(status)
+    divContainerMachine.appendChild(title)
+
+    const divContainerStatus = document.createElement("div")
+
+    divContainerStatus.classList.add("text-start")
+    divContainerStatus.classList.add("ml-8")
+    divContainerStatus.classList.add("mr-28")
+    divContainerStatus.classList.add("mb-24")
+    
     
 
+    const estado = document.createElement("p");
+
+
+    estado.classList.add("text-xl")
+
+    estado.innerText = "Estado: Ligada"
+
+    divContainerStatus.appendChild(estado)
+    
+    const temperaturaText = document.createElement("p")
+    temperaturaText.classList.add("text-xl")
+    temperaturaText.classList.add("my-4")
+
+    temperaturaText.innerText = "Temperatura: 100°C"
+
+    divContainerStatus.appendChild(temperaturaText)
+
+    const umidadeText = document.createElement("p")
+
+    umidadeText.classList.add("text-xl")
+
+    umidadeText.innerText = "Umidade: 20%"
+
+    divContainerStatus.appendChild(umidadeText)
+    
+
+    divContainerMachine.appendChild(divContainerStatus)
+    
+    machinesContainer.appendChild(divContainerMachine)
 }
+
+buildElement()
+
 
 {/* <div class="machine-container-red">
             <h2 class="mt-6 mb-10 text-red-custom text-xl">SUPERAQUECIDA</h2>
