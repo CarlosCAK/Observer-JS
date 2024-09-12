@@ -94,6 +94,10 @@ const machineList = []
 machineList.push(m1)
 machineList.push(m2)
 
+m1.temperatura = 64
+m1.ligada = true
+m1.umidade = 20
+
 const showNotificatons = () =>{
   
     f1.notificacoes.forEach((notify) => {
@@ -102,19 +106,33 @@ const showNotificatons = () =>{
 }
 
 
-const buildElement = (maquina) =>{
+const buildElement = (machine) =>{
 
     const divContainerMachine = document.createElement("div")
 
-    divContainerMachine.classList.add("machine-container-red")
+    if(machine.temperatura > 60){
+        divContainerMachine.classList.add("machine-container-red")
+        
+    }
+    else{
+        divContainerMachine.classList.add("machine-container-green")
+    }
 
     const status = document.createElement("h2")
 
     status.classList.add("mt-6")
     status.classList.add("mb-10")
-    status.classList.add("text-red-custom")
     status.classList.add("text-xl")
-    status.innerText = "SUPERAQUECIDA"
+
+    if(machine.temperatura > 60){
+        status.innerText = "SUPERAQUECIDA"
+        status.classList.add("text-red-custom") 
+    }
+    else{
+        status.innerText ="NORMAL"
+    }        
+    
+
 
     const title = document.createElement("h2")
 
@@ -139,7 +157,7 @@ const buildElement = (maquina) =>{
 
     estado.classList.add("text-xl")
 
-    estado.innerText = "Estado: Ligada"
+    estado.innerText = `Estado: ${machine.ligada}`
 
     divContainerStatus.appendChild(estado)
     
@@ -147,7 +165,7 @@ const buildElement = (maquina) =>{
     temperaturaText.classList.add("text-xl")
     temperaturaText.classList.add("my-4")
 
-    temperaturaText.innerText = "Temperatura: 100°C"
+    temperaturaText.innerText = `Temperatura: ${machine.temperatura}°C`
 
     divContainerStatus.appendChild(temperaturaText)
 
@@ -155,7 +173,7 @@ const buildElement = (maquina) =>{
 
     umidadeText.classList.add("text-xl")
 
-    umidadeText.innerText = "Umidade: 20%"
+    umidadeText.innerText = `Umidade: ${machine.umidade}%`
 
     divContainerStatus.appendChild(umidadeText)
     
@@ -165,18 +183,8 @@ const buildElement = (maquina) =>{
     machinesContainer.appendChild(divContainerMachine)
 }
 
-buildElement()
-buildElement()
-buildElement()
+buildElement(m1)
 
 
 
-{/* <div class="machine-container-red">
-            <h2 class="mt-6 mb-10 text-red-custom text-xl">SUPERAQUECIDA</h2>
-            <h2 class="mb-20 text-xl">Maquina #002</h2>
-            <div class="text-start ml-8 mr-28 mb-24">
-                <p class="text-xl">Estado: <span>Ligada</span></p>
-                <p class="text-xl my-4">Temperatura: 75°C</p>
-                <p class="text-xl">Umidade: 20%</p>
-            </div>
-        </div> */}
+
