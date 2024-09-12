@@ -9,17 +9,30 @@
 </head>
     <script src="script.js" defer></script>
 
-<body>
-    <div class="my-24 flex ml-28 items-center ">
-        <div class="w-1/6 bg-background1 h-14 flex items-center justify-center rounded-lg mr-32">
-            <h3 class="text-xl">1 Notificação</h3>
+<body class="pb-12">
+    <header class="bg-blue-500 shadow-lg">
+        <nav class="py-6">
+            <ul class="flex justify-around ">
+                <li><a href="#" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Painel</a></li>
+                <li><a href="./operador.html" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Operador</a></li>
+                <li><a href="./gestores.html" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Gestor</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="my-24 flex  items-center justify-evenly ">
+        <div class="w-1/6 bg-background1 h-14 flex items-center justify-center rounded-lg">
+            <h3 class="text-xl" id="quantidade-maquinas"></h3>
         </div>
         <h1 class=" text-8xl text center">PAINEL #001</h1>
+        <button class="bg-blue-500 text-white p-6 text-xl rounded">Atualizar</button>
+
     </div>
     
 
     <div class="flex flex-wrap gap-8 justify-center" id="container-machines">
        
     </div>
+
+
 </body>
 </html>

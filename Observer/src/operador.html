@@ -9,6 +9,17 @@
     <script src="./script.js" defer></script>
 
 <body>
+    
+    <header class="bg-blue-500 shadow-lg">
+        <nav class="py-6">
+            <ul class="flex justify-around ">
+                <li><a href="./index.html" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Painel</a></li>
+                <li><a href="./operador.html" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Operador</a></li>
+                <li><a href="./gestores.html" class="text-white font-bold text-lg hover:text-gray-200 transition duration-300">Gestor</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="my-24 flex ml-28 items-center ">
         <div class="w-1/6 bg-background1 h-14 flex items-center justify-center rounded-lg mr-32">
             <h3 class="text-xl">1 Notificação</h3>
@@ -17,16 +28,7 @@
     </div>
     
 
-    <div class="flex justify-evenly">
-        <div class="bg-background1 w-1/4 text-center rounded-lg shadow-customShadow">
-            <h2 class="mt-6 mb-10 text-red-custom text-xl">SUPERAQUECIDA</h2>
-            <h2 class="mb-20 text-xl">Maquina #002</h2>
-            <div class="text-start ml-8 mr-28 mb-24">
-                <p class="text-xl">Estado: <span>Ligada</span></p>
-                <p class="text-xl my-4">Temperatura: 75°C</p>
-                <p class="text-xl">Umidade: 20%</p>
-            </div>
-        </div>
+    <div class="flex justify-evenly" id="notificacao-Usuario">
     </div>
 </body>
 </html>

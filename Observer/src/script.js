@@ -1,11 +1,15 @@
 
 const machinesContainer = document.getElementById("container-machines")
+const quantidadeMaquinasLabel = document.getElementById("quantidade-maquinas")
+const notificacaoFuncionario = document.getElementById("notificacao-Usuario")
 let id = 0
+
+quantidadeMaquinasLabel.innerText = `0 Maquinas`
 const buildElement = (machine) =>{
 
     const divContainerMachine = document.createElement("div")
 
-    if(machine.temperatura > 60){
+    if(machine.temperatura > 100){
         divContainerMachine.classList.add("machine-container-red")
         
     }
@@ -19,7 +23,7 @@ const buildElement = (machine) =>{
     status.classList.add("mb-10")
     status.classList.add("text-xl")
 
-    if(machine.temperatura > 60){
+    if(machine.temperatura > 100){
         status.innerText = "SUPERAQUECIDA"
         status.classList.add("text-red-custom") 
     }
@@ -84,8 +88,6 @@ const idGenerator = () => {
     
 }
 
-
-
 class Funcionario{
 
     constructor(nome){
@@ -95,7 +97,7 @@ class Funcionario{
 
     update(infoUpdate){
        this.notificacoes.push(infoUpdate)
-       showNotificatons()
+       console.log("Notificou cria");
     }
     
 
@@ -108,7 +110,7 @@ class Maquina {
         this.nome = nome,
         this.temperatura = 60,
         this.umidade = 20,
-        this.ligada = false,
+        this.ligada = true,
         this.status = "",
         this.funcionarios = [],
         this.painel = painel,
@@ -116,25 +118,22 @@ class Maquina {
         this.painel.adicionarMaquina(this)
     }
 
-    addFuncionarios(funcionario){
+    addFuncionario(funcionario){
         this.funcionarios.push(funcionario)
     }
     atualizar(){
         this.info = buildElement(this)
         this.painel.atualizarPainel(this)
+        if(this.temperatura > 100 ){
+            this.notifySubscribers()
+        }
     }
 
-    notifySubscribers(text){
-        
-       
+    notifySubscribers(){
+        this.funcionarios.map((funcionario) =>{
+            funcionario.update(this.info())
+        })
     }
-
-    // atualizar(){
-    //     this.temperatura = Math.floor(Math.random() * 201);
-    //     this.notifySubscribers(`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`)
-    //     this.info.innerText =`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`
-    //     return this.info
-    // }
 
 
 }
@@ -154,6 +153,7 @@ class Painel {
              content : machine.info
         })
         this.adicionarNaTela()
+        quantidadeMaquinasLabel.innerText = `${this.exibicoes.length} Maquinas`
     }
 
     atualizarPainel(machine){
@@ -162,8 +162,13 @@ class Painel {
                 exibicao.content = machine.info
             }
         })
+        this.adicionarNaTela()
     }
     adicionarNaTela(){
+        while (machinesContainer.firstChild) {
+            machinesContainer.removeChild(machinesContainer.firstChild);
+        }
+        
         this.exibicoes.forEach((exibicao) => {
             machinesContainer.appendChild(exibicao.content)
         })
@@ -173,28 +178,35 @@ class Painel {
 
 p1 = new Painel()
 
-
-
 m1 = new Maquina("Maquina1",p1)
 m2 = new Maquina("Maquina2", p1)
 m3 = new Maquina("Maquina3",p1)
+m4 = new Maquina("Maquina3",p1)
+m5 = new Maquina("MAquina5", p1)
+
+op1 = new Operador()
+
+m1.addFuncionario(op1)
+
+const machines = []
+
+machines.push(m1,m2,m3,m4,m5)
+
+const btnTeste = document.querySelector("button")
+
+btnTeste.addEventListener("click", () =>{
+
+    machines.forEach((machine) => {
+        machine.temperatura = Math.floor(Math.random() * 201)
+        machine.umidade = Math.floor(Math.random() * 101)
+        machine.atualizar()
+
+    })
+    
+})
 
 
-const machineList = []
 
-machineList.push(m1)
-machineList.push(m2)
-
-m1.atualizar()
-
-m1.temperatura = 64
-m1.ligada = true
-m1.umidade = 20
-
-m1.atualizar()
-m2.atualizar()
-console.log(m1.id);
-console.log(m2.id);
 
 
 
