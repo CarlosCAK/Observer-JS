@@ -102,7 +102,7 @@ const showNotificatons = () =>{
 }
 
 
-const buildElement = () =>{
+const buildElement = (maquina) =>{
 
     const divContainerMachine = document.createElement("div")
 
@@ -165,6 +165,8 @@ const buildElement = () =>{
     machinesContainer.appendChild(divContainerMachine)
 }
 
+buildElement()
+buildElement()
 buildElement()
 
 
