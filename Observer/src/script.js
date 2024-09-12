@@ -1,7 +1,7 @@
 
 const machinesContainer = document.getElementById("container-machines")
 const quantidadeMaquinasLabel = document.getElementById("quantidade-maquinas")
-const notificacaoFuncionario = document.getElementById("notificacao-Usuario")
+const notificacaoFuncionario = document.getElementById("container-notifications")
 let id = 0
 
 quantidadeMaquinasLabel.innerText = `0 Maquinas`
@@ -95,8 +95,12 @@ class Funcionario{
         this.notificacoes = []
     }
 
-    update(infoUpdate){
-       this.notificacoes.push(infoUpdate)
+    update(id){
+       const text = document.createElement("p")
+       text.innerText = `A maquina de ${id} está superaquecida`
+       text.classList.add("border","text-xl","border-red-500","p-4","rounded-md")
+       this.notificacoes.push(text)
+       notificacaoFuncionario.appendChild(text)
        console.log("Notificou cria");
     }
     
@@ -131,7 +135,7 @@ class Maquina {
 
     notifySubscribers(){
         this.funcionarios.map((funcionario) =>{
-            funcionario.update(this.info())
+            funcionario.update(this.id)
         })
     }
 
@@ -185,8 +189,10 @@ m4 = new Maquina("Maquina3",p1)
 m5 = new Maquina("MAquina5", p1)
 
 op1 = new Operador()
+op2 = new Operador()
 
 m1.addFuncionario(op1)
+m2.addFuncionario(op2)
 
 const machines = []
 
