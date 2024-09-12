@@ -1,111 +1,6 @@
 
-const body = document.querySelector("body")
 const machinesContainer = document.getElementById("container-machines")
-
-
-class Funcionario{
-
-    constructor(nome){
-        this.nome = nome
-        this.notificacoes = []
-    }
-
-    update(infoUpdate){
-       this.notificacoes.push(infoUpdate)
-       showNotificatons()
-    }
-    
-
-}
-
-class Maquina {
-    
-    constructor(nome,painel){
-        this.nome = nome,
-        this.temperatura = 0,
-        this.umidade = 0,
-        this.ligada = false,
-        this.status = "",
-        this.funcionarios = [],
-        this.painels = painel,
-        this.info = document.createElement("p"),
-        this.info.innerText = `Nome: ${this.nome} \n Temperatura: ${this.temperatura}`
-        this.painels.addMachine(this.info)
-        
-    }
-
-    addFuncionarios(funcionario){
-        this.funcionarios.push(funcionario)
-    }
-
-    notifySubscribers(text){
-        const p = document.createElement("p")
-        p.innerText = text
-        this.funcionarios.forEach((funcionario) =>{
-            funcionario.update(p)
-        })
-    }
-
-    atualizar(){
-        this.temperatura = Math.floor(Math.random() * 201);
-        this.notifySubscribers(`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`)
-        this.info.innerText =`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`
-        return this.info
-    }
-
-
-}
-
-class Operador extends Funcionario{
-
-}
-class Gerente extends Funcionario{
-
-}
-class Painel {
-
-    update(machine){
-        body.appendChild(machine.atualizar())
-    }
-    addMachine(infoMachine){
-        body.appendChild(infoMachine)
-    }
-
-}
-
-f1 = new Operador()
-f2 = new Gerente()
-p1 = new Painel()
-
-
-
-f1.nome ="vaipfv"
-f2.nome ="vaipfv2"
-
-
-m1 = new Maquina("Maquina1",p1)
-m1.addFuncionarios(f1)
-m1.addFuncionarios(f2)
-m2 = new Maquina("Maquina2", p1)
-
-
-const machineList = []
-
-machineList.push(m1)
-machineList.push(m2)
-
-m1.temperatura = 64
-m1.ligada = true
-m1.umidade = 20
-
-const showNotificatons = () =>{
-  
-    f1.notificacoes.forEach((notify) => {
-        body.appendChild(notify)
-    })
-}
-
-
+let id = 0
 const buildElement = (machine) =>{
 
     const divContainerMachine = document.createElement("div")
@@ -138,7 +33,7 @@ const buildElement = (machine) =>{
 
     title.classList.add("mb-20")
     title.classList.add("text-xl")
-    title.innerText = "Maquina #003"
+    title.innerText = `Maquina #00${machine.id}`
 
     divContainerMachine.appendChild(status)
     divContainerMachine.appendChild(title)
@@ -180,10 +75,126 @@ const buildElement = (machine) =>{
 
     divContainerMachine.appendChild(divContainerStatus)
     
-    machinesContainer.appendChild(divContainerMachine)
+    return divContainerMachine;
+}
+const idGenerator = () => {
+   
+        id++;
+        return id;
+    
 }
 
-buildElement(m1)
+
+
+class Funcionario{
+
+    constructor(nome){
+        this.nome = nome
+        this.notificacoes = []
+    }
+
+    update(infoUpdate){
+       this.notificacoes.push(infoUpdate)
+       showNotificatons()
+    }
+    
+
+}
+
+class Maquina {
+    
+    constructor(nome,painel){
+        this.id = idGenerator(),
+        this.nome = nome,
+        this.temperatura = 60,
+        this.umidade = 20,
+        this.ligada = false,
+        this.status = "",
+        this.funcionarios = [],
+        this.painel = painel,
+        this.info = buildElement(this)
+        this.painel.adicionarMaquina(this)
+    }
+
+    addFuncionarios(funcionario){
+        this.funcionarios.push(funcionario)
+    }
+    atualizar(){
+        this.info = buildElement(this)
+        this.painel.atualizarPainel(this)
+    }
+
+    notifySubscribers(text){
+        
+       
+    }
+
+    // atualizar(){
+    //     this.temperatura = Math.floor(Math.random() * 201);
+    //     this.notifySubscribers(`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`)
+    //     this.info.innerText =`Nome: ${this.nome} \n Temperatura: ${this.temperatura}`
+    //     return this.info
+    // }
+
+
+}
+
+class Operador extends Funcionario{
+}
+class Gerente extends Funcionario{
+}
+class Painel {
+
+    constructor(){
+        this.exibicoes = []
+    }
+    adicionarMaquina(machine){
+        this.exibicoes.push({
+             id : machine.id, 
+             content : machine.info
+        })
+        this.adicionarNaTela()
+    }
+
+    atualizarPainel(machine){
+        this.exibicoes.map( (exibicao) =>{
+            if (machine.id === exibicao.id){
+                exibicao.content = machine.info
+            }
+        })
+    }
+    adicionarNaTela(){
+        this.exibicoes.forEach((exibicao) => {
+            machinesContainer.appendChild(exibicao.content)
+        })
+    }
+}
+
+
+p1 = new Painel()
+
+
+
+m1 = new Maquina("Maquina1",p1)
+m2 = new Maquina("Maquina2", p1)
+m3 = new Maquina("Maquina3",p1)
+
+
+const machineList = []
+
+machineList.push(m1)
+machineList.push(m2)
+
+m1.atualizar()
+
+m1.temperatura = 64
+m1.ligada = true
+m1.umidade = 20
+
+m1.atualizar()
+m2.atualizar()
+console.log(m1.id);
+console.log(m2.id);
 
 
 
