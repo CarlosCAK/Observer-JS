@@ -56,7 +56,7 @@ const buildElement = (machine) =>{
 
     estado.classList.add("text-xl")
 
-    estado.innerText = `Estado: ${machine.ligada}`
+    estado.innerText = `Estado: ${machine.ligada ? "Ligado" : "Desligado"}`
 
     divContainerStatus.appendChild(estado)
     
