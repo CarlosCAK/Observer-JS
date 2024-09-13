@@ -101,7 +101,6 @@ class Funcionario{
        text.classList.add("border","text-xl","border-red-500","p-4","rounded-md")
        this.notificacoes.push(text)
        notificacaoFuncionario.appendChild(text)
-       console.log("Notificou cria");
     }
     
 
